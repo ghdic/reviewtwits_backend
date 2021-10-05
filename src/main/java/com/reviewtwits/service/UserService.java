@@ -19,6 +19,8 @@ public class UserService implements UserDetailsService {
     }
 
     public User register(String uid, String email, String nickname) {
-        return new User(uid, email, nickname);
+        User user = new User(uid, email, nickname);
+        userRepo.save(user);
+        return user;
     }
 }

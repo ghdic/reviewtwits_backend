@@ -38,7 +38,7 @@ public class UserController {
         return new UserInfo(registeredUser);
     }
 
-    @GetMapping("self")
+    @GetMapping("/self")
     public UserInfo getUserSelf(Authentication authentication) {
         User user = (User) authentication.getPrincipal();
         return new UserInfo(user);
