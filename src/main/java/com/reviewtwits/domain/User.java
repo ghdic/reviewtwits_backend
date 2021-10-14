@@ -7,26 +7,38 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 
-@Entity
+@Entity(name="user")
 @Data
 public class User implements UserDetails {
     @Id
-    private String username;
-    @Column
-    private String email;
-    @Column
+    @Column(length = 512)
+    private String uid;
+    @Column(unique = true)
     private String nickname;
+    @Column
+    private String profileImage;
+    @Column
+    private LocalDate birthday;
+    @Column
+    private int age;
+    @Column
+    private int gender;
 
     public User() {
         super();
     }
 
-    public User(String username, String email, String nickname) {
-        this.username = username;
-        this.email = email;
+    public User(String uid, String nickname, String profileImage, LocalDate birthday, int age, int gender) {
+        this.uid = uid;
         this.nickname = nickname;
+        this.profileImage = profileImage;
+        this.birthday = birthday;
+        this.age = age;
+        this.gender = gender;
     }
 
     @Override
@@ -37,6 +49,11 @@ public class User implements UserDetails {
     @Override
     public String getPassword() {
         return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return uid;
     }
 
 

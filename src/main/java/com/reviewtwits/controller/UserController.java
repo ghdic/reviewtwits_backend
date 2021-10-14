@@ -14,6 +14,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -34,7 +38,8 @@ public class UserController {
                     "{\"code\":\"INVALID_TOKEN\", \"message\":\"" + e.getMessage() + "\"}");
         }
         User registeredUser = userService.register(
-                decodedToken.getUid(), decodedToken.getEmail(), registerInfo.getNickname());
+                decodedToken.getUid(), registerInfo.getNickname(),
+                registerInfo.getProfileImage(), LocalDate.parse(registerInfo.getBirthday(), DateTimeFormatter.ISO_DATE), registerInfo.getAge(), registerInfo.getGender());
         return new UserInfo(registeredUser);
     }
 
