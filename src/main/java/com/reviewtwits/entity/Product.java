@@ -6,7 +6,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
-@Entity(name="domain")
+@Entity(name="product")
 @Data
 public class Product {
     @Id
@@ -17,7 +17,7 @@ public class Product {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String projectId;
     @ManyToOne(targetEntity = Project.class)
-    @JoinColumn(name = "projectId")
+    @JoinColumn(name = "project_projectId")
     private Project project;
     @ColumnDefault("0")
     int sales;

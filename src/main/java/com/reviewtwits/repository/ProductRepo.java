@@ -10,5 +10,5 @@ import java.util.ArrayList;
 public interface ProductRepo extends JpaRepository<Product, Integer> {
     Product save(Product product);
     Product findProductByPathAndProject_Domain(String path, String project_domain);
-    ArrayList<Product> findProductsByProjectId(String projectId);
+    ArrayList<Product> findProductsByProject_ProjectId(String projectId);
 }

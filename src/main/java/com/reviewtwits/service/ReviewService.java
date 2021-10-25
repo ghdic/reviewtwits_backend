@@ -9,6 +9,7 @@ import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,14 +21,16 @@ import java.util.ArrayList;
 
 @Service
 public class ReviewService {
-    @Autowired
+
     ReviewRepo reviewRepo;
-
-    @Autowired
     UserService userService;
-
-    @Autowired
     ProjectService projectService;
+
+    public ReviewService(ReviewRepo reviewRepo, UserService userService, ProjectService projectService) {
+        this.reviewRepo = reviewRepo;
+        this.userService = userService;
+        this.projectService = projectService;
+    }
 
     public Review submitReviewToDatabase(Review review) throws IOException, ParseException {
         review.setUser(userService.loadUserByUsername(review.getUid()));
@@ -72,6 +75,7 @@ public class ReviewService {
         return reviewRepo.save(review);
     }
 
+    @Transactional
     public int deleteReviewToDatabase(int reviewId, String uid) {
         Review review = reviewRepo.findReviewByReviewId(reviewId);
         if(review == null || !review.getUser().getUid().equals(uid))

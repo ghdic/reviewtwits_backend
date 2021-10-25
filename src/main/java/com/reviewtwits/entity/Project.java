@@ -16,13 +16,13 @@ public class Project {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String uid;
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "user_uid")
     private User user;
     private String summary;
     private String category;
     private String domain;
     private int reviewStyle;
-    @ColumnDefault("")
+    @Column(length = 1024)
     private String customCss;
     private int aiPositiveNegative;
 }

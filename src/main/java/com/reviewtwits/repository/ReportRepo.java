@@ -15,6 +15,5 @@ public interface ReportRepo extends JpaRepository<Report, Integer> {
     ArrayList<Report> findReportByProductId(int productId);
     ArrayList<Report> findReportByUser_Uid(Sort sort, String user_uid);
     ArrayList<Report> findReportByUser_UidAndStatusEquals(Sort sort, String user_uid, String status);
-    @Transactional
     void deleteByOrderId(int orderId);
 }

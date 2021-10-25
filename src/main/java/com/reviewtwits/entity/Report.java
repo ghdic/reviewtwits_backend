@@ -5,7 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name="order")
+@Entity(name="report")
 @Data
 public class Report {
     @Id
@@ -17,7 +17,7 @@ public class Report {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String uid;
     @ManyToOne(targetEntity = User.class)
-    @JoinColumn(name = "uid")
+    @JoinColumn(name = "user_uid")
     private User user;
     String goodsName;
     int price;

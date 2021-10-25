@@ -12,6 +12,5 @@ public interface ProjectRepo extends JpaRepository<Project, String> {
     Project save(Project project);
     Project findProjectByProjectId(String projectId);
     ArrayList<Project> findProjectByUser_Uid(String user_uid);
-    @Transactional
     void deleteByProjectId(String projectId);
 }

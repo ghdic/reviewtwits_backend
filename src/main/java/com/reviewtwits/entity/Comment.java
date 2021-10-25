@@ -17,7 +17,7 @@ public class Comment {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String uid;
     @ManyToOne(targetEntity=User.class)
-    @JoinColumn(name = "uid") // 멤버변수이름_외래키이름
+    @JoinColumn(name = "user_uid") // 멤버변수이름_외래키이름
     private User user;
     @Column(updatable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

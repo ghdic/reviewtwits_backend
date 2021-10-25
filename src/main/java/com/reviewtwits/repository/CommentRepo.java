@@ -14,8 +14,6 @@ public interface CommentRepo extends JpaRepository<Comment, Integer> {
     ArrayList<Comment> findCommentsByUser_Uid(Sort sort, String user_uid);
     ArrayList<Comment> findCommentsByReviewId(Sort sort, int reviewId);
     Comment findCommentsByCommentId(int commentId);
-
-    @Transactional
     void deleteCommentByCommentId(int commentId);
 
 }

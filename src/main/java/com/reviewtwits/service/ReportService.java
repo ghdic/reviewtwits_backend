@@ -11,11 +11,13 @@ import java.util.ArrayList;
 
 @Service
 public class ReportService {
-
-    @Autowired
     ReportRepo reportRepo;
-    @Autowired
     UserService userService;
+
+    public ReportService(ReportRepo reportRepo, UserService userService) {
+        this.reportRepo = reportRepo;
+        this.userService = userService;
+    }
 
     public Report submitReportToDatabase(Report report) {
         report.setUser(userService.loadUserByUsername(report.getUid()));

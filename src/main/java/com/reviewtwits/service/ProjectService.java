@@ -5,16 +5,19 @@ import com.reviewtwits.repository.ProjectRepo;
 import com.reviewtwits.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
 @Service
 public class ProjectService {
-    @Autowired
     ProjectRepo projectRepo;
-
-    @Autowired
     UserService userService;
+
+    public ProjectService(ProjectRepo projectRepo, UserService userService) {
+        this.projectRepo = projectRepo;
+        this.userService = userService;
+    }
 
     public Project displayProejctMetaData(String projectId) {
         return projectRepo.findProjectByProjectId(projectId);
@@ -41,6 +44,7 @@ public class ProjectService {
         return projectRepo.save(project);
     }
 
+    @Transactional
     public int deleteProjectToDatabase(String projectId, String uid) {
         Project project = projectRepo.findProjectByProjectId(projectId);
         if(project == null || !project.getUser().getUid().equals(uid))

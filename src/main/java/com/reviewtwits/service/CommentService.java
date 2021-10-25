@@ -5,6 +5,7 @@ import com.reviewtwits.repository.CommentRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.lang.reflect.Array;
 import java.time.LocalDateTime;
@@ -13,10 +14,13 @@ import java.util.ArrayList;
 
 @Service
 public class CommentService {
-    @Autowired
     CommentRepo commentRepo;
-    @Autowired
     UserService userService;
+
+    public CommentService(CommentRepo commentRepo, UserService userService) {
+        this.commentRepo = commentRepo;
+        this.userService = userService;
+    }
 
     public Comment submitCommentToDatabase(Comment comment) {
         comment.setUser(userService.loadUserByUsername(comment.getUid()));
@@ -32,6 +36,7 @@ public class CommentService {
         return commentRepo.save(comment);
     }
 
+    @Transactional
     public int deleteCommentFromDatabase(String uid, int commentId) {
         Comment comment = commentRepo.findCommentsByCommentId(commentId);
         if(comment == null || !comment.getUser().getUid().equals(uid))

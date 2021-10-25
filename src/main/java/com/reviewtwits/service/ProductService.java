@@ -1,6 +1,7 @@
 package com.reviewtwits.service;
 
 import com.reviewtwits.entity.Product;
+import com.reviewtwits.message.request.ProductReq;
 import com.reviewtwits.repository.ProductRepo;
 import com.reviewtwits.repository.ProjectRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,10 +9,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ProductService {
-    @Autowired
+
     ProductRepo productRepo;
-    @Autowired
     ProjectRepo projectRepo;
+
+    public ProductService(ProductRepo productRepo, ProjectRepo projectRepo) {
+        this.productRepo = productRepo;
+        this.projectRepo = projectRepo;
+    }
 
     public Product DisplayProductFromDatabase(String path, String domain) {
         return productRepo.findProductByPathAndProject_Domain(path, domain);

@@ -5,18 +5,24 @@ import com.reviewtwits.repository.FollowerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 
 @Service
 public class FollowerService {
-    @Autowired
+
     FollowerRepo followerRepo;
+
+    public FollowerService(FollowerRepo followerRepo) {
+        this.followerRepo = followerRepo;
+    }
 
     public Follower submitFollowerToDataBase(Follower follower) {
         return followerRepo.save(follower);
     }
 
+    @Transactional
     public int deleteFollowerFromDatabase(String uid, int followId) {
         Follower follower = followerRepo.findFollowerByFollowId(followId);
         if(follower == null || !follower.getUid().equals(uid))

@@ -16,17 +16,17 @@ public class Review {
 
     @ColumnDefault("0")
     private int reviewType; // 0 인증x, 1 인증
-    @ColumnDefault("")
     private String projectId;
     private String path;
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String uid;
     @ManyToOne(targetEntity=User.class)
-    @JoinColumn(name = "uid") // 멤버변수이름_외래키이름
+    @JoinColumn(name = "user_uid") // 멤버변수이름_외래키이름
     private User user;
     @Column(length = 1024)
     private String imagePath;
+    @Column(length = 2048)
     private String content;
     private int score;
     private double emotion;
