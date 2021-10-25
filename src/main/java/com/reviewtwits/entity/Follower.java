@@ -8,10 +8,10 @@ import javax.persistence.Id;
 
 @Entity(name = "follow")
 @Data
-public class Follow {
+public class Follower {
     @Id
     @GeneratedValue
     private int followId;
     private String uid;
-    private String target_uid;
+    private String targetUid;
 }

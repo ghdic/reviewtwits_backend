@@ -7,12 +7,12 @@ import javax.persistence.*;
 
 @Entity(name="order")
 @Data
-public class Order {
+public class Report {
     @Id
     @GeneratedValue
     int orderId;
     String domainUrl;
-    String projectId;
+    int productId;
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String uid;

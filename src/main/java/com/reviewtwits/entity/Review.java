@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity(name = "review")
 @Data
@@ -29,6 +30,7 @@ public class Review {
     private String content;
     private int score;
     private double emotion;
+    private LocalDateTime createDate;
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     @ColumnDefault("0")
     private int likeCount;

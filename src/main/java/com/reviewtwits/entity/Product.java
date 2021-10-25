@@ -27,4 +27,6 @@ public class Product {
     int income;
     @ColumnDefault("0")
     int view;
+    String goodsName;
+    int price;
 }

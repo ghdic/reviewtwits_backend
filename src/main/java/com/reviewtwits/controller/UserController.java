@@ -8,6 +8,7 @@ import com.reviewtwits.message.request.RegisterInfo;
 import com.reviewtwits.message.response.UserInfo;
 import com.reviewtwits.service.UserService;
 import com.reviewtwits.util.RequestUtil;
+import com.reviewtwits.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -34,16 +35,9 @@ public class UserController {
     @PostMapping("")
     public UserInfo register(@RequestHeader("Authorization") String authorization,
                              @RequestBody RegisterInfo registerInfo) {
-        FirebaseToken decodedToken;
-        try {
-            String token = RequestUtil.getAuthorizationToken(authorization);
-            decodedToken = firebaseAuth.verifyIdToken(token);
-        } catch (IllegalArgumentException | FirebaseAuthException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                    "{\"code\":\"INVALID_TOKEN\", \"message\":\"" + e.getMessage() + "\"}");
-        }
+
         User registeredUser = userService.register(
-                decodedToken.getUid(), registerInfo.getNickname(),
+                TokenUtil.parseUid(firebaseAuth, authorization), registerInfo.getNickname(),
                 registerInfo.getProfileImage(), LocalDate.parse(registerInfo.getBirthday(), DateTimeFormatter.ISO_DATE), registerInfo.getAge(), registerInfo.getGender(), registerInfo.getReviewReveal());
         return new UserInfo(registeredUser);
     }
@@ -55,15 +49,8 @@ public class UserController {
 
     @PostMapping("/{uid}")
     private User updateUser(@RequestHeader("Authorization") String authorization, @RequestBody RegisterInfo registerInfo) {
-        FirebaseToken decodedToken;
-        try {
-            String token = RequestUtil.getAuthorizationToken(authorization);
-            decodedToken = firebaseAuth.verifyIdToken(token);
-        } catch (IllegalArgumentException | FirebaseAuthException e) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED,
-                    "{\"code\":\"INVALID_TOKEN\", \"message\":\"" + e.getMessage() + "\"}");
-        }
-        return userService.updateUserData(decodedToken.getUid(), registerInfo.getNickname(), registerInfo.getProfileImage(),
+
+        return userService.updateUserData(TokenUtil.parseUid(firebaseAuth, authorization), registerInfo.getNickname(), registerInfo.getProfileImage(),
                 LocalDate.parse(registerInfo.getBirthday(), DateTimeFormatter.ISO_DATE), registerInfo.getAge(), registerInfo.getGender(), registerInfo.getReviewReveal());
     }
 

@@ -1,11 +1,13 @@
 package com.reviewtwits.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity(name = "comment")
+@Data
 public class Comment {
     @Id
     @GeneratedValue
@@ -20,6 +22,6 @@ public class Comment {
     @Column(updatable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime createDate;
-    private String comment;
+    private String content;
 
 }

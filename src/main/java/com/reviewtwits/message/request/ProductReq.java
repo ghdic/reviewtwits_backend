@@ -7,4 +7,6 @@ public class ProductReq {
     String domain;
     String path;
     int income;
+    String goodsName;
+    int price;
 }

@@ -14,6 +14,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 
 @Service
@@ -29,6 +31,7 @@ public class ReviewService {
 
     public Review submitReviewToDatabase(Review review) throws IOException, ParseException {
         review.setUser(userService.loadUserByUsername(review.getUid()));
+        review.setCreateDate(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
         if(!review.getProjectId().equals("")) {
             Project project = projectService.displayProejctMetaData(review.getProjectId());
             if(project.getCategory().equals("movie")) {
