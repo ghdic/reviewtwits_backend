@@ -1,10 +1,9 @@
 package com.reviewtwits.message.response;
 
-import com.reviewtwits.domain.User;
+import com.reviewtwits.entity.User;
 import lombok.Data;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Data
 public class UserInfo {

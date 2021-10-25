@@ -11,4 +11,5 @@ public class RegisterInfo {
     private String birthday;
     private int age;
     private int gender;
+    private int reviewReveal;
 }

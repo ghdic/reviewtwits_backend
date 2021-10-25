@@ -1,6 +1,7 @@
-package com.reviewtwits.domain;
+package com.reviewtwits.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.ColumnDefault;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,7 +9,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Entity(name="user")
@@ -19,26 +19,28 @@ public class User implements UserDetails {
     private String uid;
     @Column(unique = true)
     private String nickname;
-    @Column
     private String profileImage;
-    @Column
     private LocalDate birthday;
-    @Column
     private int age;
-    @Column
     private int gender;
+    @ColumnDefault("1")
+    private int grade;
+    @ColumnDefault("1")
+    private int reviewReveal;
 
     public User() {
         super();
     }
 
-    public User(String uid, String nickname, String profileImage, LocalDate birthday, int age, int gender) {
+    public User(String uid, String nickname, String profileImage, LocalDate birthday, int age, int gender, int grade, int reviewReveal) {
         this.uid = uid;
         this.nickname = nickname;
         this.profileImage = profileImage;
         this.birthday = birthday;
         this.age = age;
         this.gender = gender;
+        this.grade = grade;
+        this.reviewReveal = reviewReveal;
     }
 
     @Override
