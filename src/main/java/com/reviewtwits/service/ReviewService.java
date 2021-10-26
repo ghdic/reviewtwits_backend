@@ -15,6 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -35,7 +36,7 @@ public class ReviewService {
     public Review submitReviewToDatabase(Review review) throws IOException, ParseException {
         review.setUser(userService.loadUserByUsername(review.getUid()));
         review.setCreateDate(LocalDateTime.now(ZoneId.of("Asia/Seoul")));
-        if(!review.getProjectId().equals("")) {
+        if(review.getProjectId() != null && !review.getProjectId().equals("")) {
             Project project = projectService.displayProejctMetaData(review.getProjectId());
             if(project.getCategory().equals("movie")) {
                 URL url = new URL("http://localhost:5000/movie?q=" + review.getContent());
@@ -48,7 +49,8 @@ public class ReviewService {
 
                 review.setEmotion(emotion);
             } else if(project.getCategory().equals("shopping")) {
-                URL url = new URL("http://localhost:5000/shopping?q=" + review.getContent());
+                System.out.println("http://localhost:5000/shopping?q=" + review.getContent());
+                URL url = new URL("http://localhost:5000/shopping?q=" + URLEncoder.encode(review.getContent(), "UTF-8"));
                 BufferedReader buffer;
                 buffer = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));
                 String json = buffer.readLine();
@@ -90,6 +92,10 @@ public class ReviewService {
 
     public ArrayList<Review> displayReviewsByUser(String uid) {
         return reviewRepo.findReviewByUser_Uid(Sort.by(Sort.Direction.DESC, "reviewId"), uid);
+    }
+
+    public ArrayList<Review> displayReviewsByPath(String path) {
+        return reviewRepo.findReviewsByPath(Sort.by(Sort.Direction.DESC, "reviewId"), path);
     }
 
     public Review likeCountUpdate(int reviewId) {

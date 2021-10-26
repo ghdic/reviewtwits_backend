@@ -30,9 +30,14 @@ public class ReportController {
         return reportService.updateStatusToDatabase(orderId, status);
     }
 
-    @GetMapping("/product/{productId}")
-    private ArrayList<Report> getReportDataFromProductId(@PathVariable("productId")int productId) {
-        return reportService.displayReportDataFromProductId(productId);
+    @PostMapping("/complete/{orderId}")
+    private Report updateCompleteStatus(@PathVariable("orderId")int orderId) {
+        return reportService.updateStatusToDatabase(orderId, "complete");
+    }
+
+    @GetMapping("/product/{projectId}")
+    private ArrayList<Report> getReportDataFromProductId(@PathVariable("projectId")String projectId) {
+        return reportService.displayReportDataFromProductId(projectId);
     }
 
     @GetMapping("/user")

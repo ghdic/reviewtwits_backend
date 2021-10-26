@@ -15,4 +15,5 @@ public interface ReviewRepo extends JpaRepository<Review, Integer> {
     ArrayList<Review> findAll(Sort sort);
     ArrayList<Review> findReviewByUser_Uid(Sort sort, String user_uid);
     void deleteByReviewId(int reviewId);
+    ArrayList<Review> findReviewsByPath(Sort sort, String path);
 }

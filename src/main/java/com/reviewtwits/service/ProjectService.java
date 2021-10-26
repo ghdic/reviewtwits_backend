@@ -38,9 +38,6 @@ public class ProjectService {
             return null;
         project.setSummary(summary);
         project.setCategory(category);
-        project.setReviewStyle(reviewStyle);
-        project.setCustomCss(customCss);
-        project.setAiPositiveNegative(aiPositiveNegative);
         return projectRepo.save(project);
     }
 

@@ -23,11 +23,11 @@ public class FollowerService {
     }
 
     @Transactional
-    public int deleteFollowerFromDatabase(String uid, int followId) {
-        Follower follower = followerRepo.findFollowerByFollowId(followId);
+    public int deleteFollowerFromDatabase(String uid, String targetUid) {
+        Follower follower = followerRepo.findFollowerByUidAndTargetUid(uid, targetUid);
         if(follower == null || !follower.getUid().equals(uid))
             return -1;
-        followerRepo.deleteFollowerByFollowId(followId);
+        followerRepo.deleteFollowerByUidAndTargetUid(uid, targetUid);
         return 0;
     }
 

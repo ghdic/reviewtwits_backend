@@ -18,11 +18,9 @@ public class Project {
     @ManyToOne(targetEntity = User.class)
     @JoinColumn(name = "user_uid")
     private User user;
+    private String projectName;
     private String summary;
     private String category;
+    private String color;
     private String domain;
-    private int reviewStyle;
-    @Column(length = 1024)
-    private String customCss;
-    private int aiPositiveNegative;
 }

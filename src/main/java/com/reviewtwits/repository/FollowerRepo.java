@@ -11,7 +11,8 @@ import java.util.ArrayList;
 public interface FollowerRepo extends JpaRepository<Follower, Integer> {
     Follower save(Follower follower);
     Follower findFollowerByFollowId(int followId);
+    Follower findFollowerByUidAndTargetUid(String uid, String targetUid);
     ArrayList<Follower> findFollowerByUid(Sort sort, String uid);
     ArrayList<Follower> findFollowerByTargetUid(Sort sort, String targetUid);
-    void deleteFollowerByFollowId(int followId);
+    void deleteFollowerByUidAndTargetUid(String uid, String targetUid);
 }

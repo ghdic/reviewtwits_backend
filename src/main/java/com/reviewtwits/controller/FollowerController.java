@@ -22,12 +22,12 @@ public class FollowerController {
         return followerService.submitFollowerToDataBase(follower);
     }
 
-    @DeleteMapping("/{followId}")
-    private int deleteFollower(@PathVariable("followId") int followId, @RequestHeader("Authorization") String authorization) {
-        return followerService.deleteFollowerFromDatabase(TokenUtil.parseUid(firebaseAuth, authorization), followId);
+    @DeleteMapping("/{targetUid}")
+    private int deleteFollower(@PathVariable("targetUid") String targetUid, @RequestHeader("Authorization") String authorization) {
+        return followerService.deleteFollowerFromDatabase(TokenUtil.parseUid(firebaseAuth, authorization), targetUid);
     }
 
-    @GetMapping("/")
+    @GetMapping("")
     private ArrayList<Follower> getFollowerByUid(@RequestHeader("Authorization") String authorization) {
         return followerService.displayFollowersFromUid(TokenUtil.parseUid(firebaseAuth, authorization));
     }

@@ -11,7 +11,6 @@ import com.reviewtwits.util.RequestUtil;
 import com.reviewtwits.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -33,13 +32,13 @@ public class UserController {
     }
 
     @PostMapping("")
-    public UserInfo register(@RequestHeader("Authorization") String authorization,
+    public User register(@RequestHeader("Authorization") String authorization,
                              @RequestBody RegisterInfo registerInfo) {
 
         User registeredUser = userService.register(
                 TokenUtil.parseUid(firebaseAuth, authorization), registerInfo.getNickname(),
                 registerInfo.getProfileImage(), LocalDate.parse(registerInfo.getBirthday(), DateTimeFormatter.ISO_DATE), registerInfo.getAge(), registerInfo.getGender(), registerInfo.getReviewReveal());
-        return new UserInfo(registeredUser);
+        return registeredUser;
     }
 
     @GetMapping("/{uid}")
@@ -55,9 +54,8 @@ public class UserController {
     }
 
     @GetMapping("/self")
-    public UserInfo getUserSelf(Authentication authentication) {
-        User user = (User) authentication.getPrincipal();
-        return new UserInfo(user);
+    public User getUserSelf(@RequestHeader("Authorization") String authorization) {
+        return userService.loadUserByUsername(TokenUtil.parseUid(firebaseAuth, authorization));
     }
 
     @GetMapping("/suggestions")

@@ -12,7 +12,7 @@ public class Report {
     @GeneratedValue
     int orderId;
     String domainUrl;
-    int productId;
+    String projectId;
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String uid;

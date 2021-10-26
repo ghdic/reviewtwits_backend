@@ -15,7 +15,7 @@ public class UserInfo {
     private int gender;
 
     public UserInfo(User user) {
-        this.uid = user.getUsername();
+        this.uid = user.getUid();
         this.nickname = user.getNickname();
         this.profileImage = user.getProfileImage();
         this.birthday = user.getBirthday();

@@ -4,6 +4,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseToken;
 import com.reviewtwits.entity.Review;
+import com.reviewtwits.message.request.PathReq;
 import com.reviewtwits.message.request.ReviewReq;
 import com.reviewtwits.service.ReviewService;
 import com.reviewtwits.util.RequestUtil;
@@ -56,5 +57,10 @@ public class ReviewController {
     @PostMapping("/like/{reviewId}")
     private Review likeCountIncrase(@PathVariable("reviewId") int reviewId) {
         return reviewService.likeCountUpdate(reviewId);
+    }
+
+    @PostMapping("/path")
+    private ArrayList<Review> getReviewsByPath(@RequestBody PathReq pathReq) {
+        return reviewService.displayReviewsByPath(pathReq.getPath());
     }
 }

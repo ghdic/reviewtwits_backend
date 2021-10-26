@@ -2,6 +2,7 @@ package com.reviewtwits.controller;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.reviewtwits.entity.Comment;
+import com.reviewtwits.message.request.ContentReq;
 import com.reviewtwits.service.CommentService;
 import com.reviewtwits.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class CommentController {
     }
 
     @PostMapping("/{commentId}")
-    private Comment updateComment(@PathVariable("commentId")int commentId, @RequestHeader("Authorization") String authorization, @RequestBody String content) {
-        return commentService.updateCommentToDatabase(TokenUtil.parseUid(firebaseAuth, authorization), commentId, content);
+    private Comment updateComment(@PathVariable("commentId")int commentId, @RequestHeader("Authorization") String authorization, @RequestBody ContentReq contentReq) {
+        return commentService.updateCommentToDatabase(TokenUtil.parseUid(firebaseAuth, authorization), commentId, contentReq.getContent());
     }
 
     @DeleteMapping("/{commentId}")

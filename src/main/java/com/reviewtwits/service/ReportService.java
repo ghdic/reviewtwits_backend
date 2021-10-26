@@ -32,8 +32,8 @@ public class ReportService {
         return reportRepo.save(report);
     }
 
-    public ArrayList<Report> displayReportDataFromProductId(int productId) {
-        return reportRepo.findReportByProductId(productId);
+    public ArrayList<Report> displayReportDataFromProductId(String projectId) {
+        return reportRepo.findReportByProjectId(projectId);
     }
 
     public ArrayList<Report> displayReportDataFromUserUid(String userUid) {

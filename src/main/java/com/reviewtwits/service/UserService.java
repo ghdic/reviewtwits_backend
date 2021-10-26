@@ -2,26 +2,28 @@ package com.reviewtwits.service;
 
 import com.reviewtwits.entity.User;
 import com.reviewtwits.repository.UserRepo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserService {
     UserRepo userRepo;
 
     public UserService(UserRepo userRepo) {
         this.userRepo = userRepo;
     }
 
-    @Override
-    public User loadUserByUsername(String uid) throws UsernameNotFoundException {
-        return userRepo.findByUid(uid);
+
+    public User loadUserByUsername(String uid) {
+        User user = userRepo.findByUid(uid);
+        if(user == null) {
+            User newUser = new User();
+            newUser.setUid("0");
+            return newUser;
+        }
+        return user;
     }
 
     public User register(String uid, String nickname, String profileImage, LocalDate birthday, int age, int gender, int reviewReveal) {

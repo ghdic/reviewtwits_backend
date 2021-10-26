@@ -20,7 +20,11 @@ public class ProjectController {
     ProjectService projectService;
 
     @GetMapping("")
-    private ArrayList<Project> getProjectFromUser(@RequestHeader("Authorization") String authorization) {
+    private ArrayList<Project> getProjectFromUser(@RequestHeader(value = "Authorization", required = false) String authorization) {
+        if(authorization == null) {
+            return new ArrayList<Project>();
+        }
+
         return projectService.displayProjectByUser(TokenUtil.parseUid(firebaseAuth, authorization));
     }
 
